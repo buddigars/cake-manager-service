@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cake-manager-service
+  labels:
+    tier: backend
+    app: cake-manager-service
+spec:
+  selector:
+    matchLabels:
+      app: cake-manager-service
+  replicas: 3
+  template:
+    metadata:
+      name: cake-manager-service
+      labels:
+        app: cake-manager-service
+    spec:
+      containers:
+        - name: cake-manager-service
+          image: cake-manager-service

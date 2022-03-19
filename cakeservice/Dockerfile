@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:alpine-jre
+FROM adoptopenjdk/openjdk11:latest
 COPY target/*.jar app.jar
 ENV JAVA_OPTS=""
 EXPOSE 9000
