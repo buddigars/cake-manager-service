@@ -12,6 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
+
 import static com.waracle.cakeservice.utils.ResponseUtils.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -19,6 +21,7 @@ import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -87,7 +90,15 @@ class CakeAppUserControllerTest {
         verify(service).assignRoleToUser(anyString(), anyString());
 
     }
+    @Test
+    void getAllUsers() throws Exception {
+        lenient().when(service.getUsers()).thenReturn(Arrays.asList(getCakeAppUser(" ")));
 
+        mockMvc.perform(get("/api/v1/cake-app-users/")).andExpect(status().is(OK.value()));
+
+
+        verify(service).getUsers();
+    }
 
     public static AssignRoleToUser getAssignRoleToUserReq() {
         return AssignRoleToUser.builder().username("buddigars").roleName("ROLE_1").build();

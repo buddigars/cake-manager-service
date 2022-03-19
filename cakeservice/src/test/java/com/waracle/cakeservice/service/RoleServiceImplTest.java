@@ -8,6 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static com.waracle.cakeservice.utils.ResponseUtils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,5 +32,15 @@ class RoleServiceImplTest {
 
         assertNotNull(actual);
         assertEquals("ROLE_1", actual.getName());
+    }
+
+    @Test
+    void getRoles() {
+        when(repo.findAll()).thenReturn(Arrays.asList(getRoleObj("VIEW")));
+
+        List<Role> actual = service.getAllRoles();
+
+        assertNotNull(actual);
+        assertEquals(1, actual.size());
     }
 }

@@ -83,7 +83,7 @@ class CakeControllerTest {
     void getCakesForAllClients() throws Exception {
         lenient().when(service.getCakesForAllClients()).thenReturn(DataResponse.builder().status("Success").cakes(Arrays.asList(getCake(""))).records(1).build());
 
-        mockMvc.perform(get("/api/v1/")).andExpect(status().is(OK.value()));
+        mockMvc.perform(get("/api/v1/cakes/")).andExpect(status().is(OK.value()));
 
 
         verify(service).getCakesForAllClients();

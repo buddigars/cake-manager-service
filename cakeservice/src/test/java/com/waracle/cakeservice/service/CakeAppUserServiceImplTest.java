@@ -16,6 +16,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static com.waracle.cakeservice.utils.ResponseUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -98,5 +101,15 @@ class CakeAppUserServiceImplTest {
         when(repo.findByUsername(anyString())).thenReturn(null);
 
         assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("test"));
+    }
+
+    @Test
+    void getUsers() {
+        when(repo.findAll()).thenReturn(Arrays.asList(getCakeAppUser(" ")));
+
+        List<CakeAppUser> actual = service.getUsers();
+
+        assertNotNull(actual);
+        assertEquals(1, actual.size());
     }
 }

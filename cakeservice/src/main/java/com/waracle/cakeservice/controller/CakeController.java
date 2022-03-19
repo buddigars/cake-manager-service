@@ -12,12 +12,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/cakes")
 @RequiredArgsConstructor
 public class CakeController {
     private final CakeService cakeService;
 
-    @PostMapping("/cakes")
+    @PostMapping("/")
     public ResponseEntity<Cake> addCake(@RequestBody Cake cake) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/cakes").toUriString());
         if (!StringUtils.hasText(cake.getName())
@@ -32,7 +32,7 @@ public class CakeController {
         return ResponseEntity.ok().body(cakeService.getCakesForAllClients());
     }
 
-    @GetMapping("/cakes/{clientName}")
+    @GetMapping("/{clientName}")
     public ResponseEntity<DataResponse> getCakesByClientName(@PathVariable String clientName) {
         if (!StringUtils.hasText(clientName)) {
             throw new IllegalArgumentException("Client name is empty");

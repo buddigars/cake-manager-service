@@ -61,6 +61,11 @@ public class CakeAppUserServiceImpl implements CakeAppUserService, UserDetailsSe
     }
 
     @Override
+    public List<CakeAppUser> getUsers() {
+        return cakeUserRepo.findAll();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         CakeAppUser user = cakeUserRepo.findByUsername(username);
         if (user == null) {
